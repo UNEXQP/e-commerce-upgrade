@@ -1,13 +1,11 @@
 import '../index.css'
 import { Navbar } from '../components/Navbar'
-import Vector from '../images/Vector.png'
 import Rectangle from '../images/Rectangle.png'
 import Gucci from '../images/Gucci.png'
 import Prada from '../images/Prada.png'
 import Versace from '../images/Versace.png'
 import Zara from '../images/Zara.png'
 import CalvinKlein from '../images/CalvinKlein.png'
-import { ProductCard } from '../components/ProductCard'
 import images from "../images/Features.png"
 import hpcom1 from "../images/hpcom1.png"
 import hpcom2 from "../images/hpcom2.png"

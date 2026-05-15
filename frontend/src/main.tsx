@@ -1,7 +1,6 @@
-import { StrictMode } from 'react'
+
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { App } from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { CartPage } from './pages/CartPage'
@@ -15,7 +14,6 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query'
 import { HomePage } from './pages/HomePage'
-import { ProductCard } from './components/ProductCard'
 import { CategoryPage } from './pages/CategoryPage'
 
 const queryClient = new QueryClient()
