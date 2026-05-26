@@ -87,7 +87,7 @@ export const ProductDetailPage = () => {
 
                 <div className="flex ">
                     <div className="flex flex-col mb-[60px] ">
-                        <img src={data?.image} className="w-[150px] h-[150px] object-contain bg-gray-200 rounded-2xl mb-3" />
+                        <img src={data?.image} className="w-[150px] h-[150px] object-contain bg-gray-200 rounded-2xl mb-3 " />
                         <img src={data?.image} className="w-[150px] h-[150px] object-contain bg-gray-200 rounded-2xl mb-3" />
                         <img src={data?.image} className="w-[150px] h-[150px] object-contain bg-gray-200 rounded-2xl mb-3" />
                     </div>

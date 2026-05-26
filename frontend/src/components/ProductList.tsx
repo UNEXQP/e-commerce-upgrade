@@ -6,22 +6,41 @@ interface Props {
     limit?: number;
 }
 
-export const ProductList = ({ limit }: Props) => {
+export const ProductGrid = ({ limit }: Props) => {
     const { data, isLoading } = useQuery({
         queryKey: ["products"],
         queryFn: fetchData,
     });
 
-    if (isLoading) return <p className="text-center text-gray-400">Loading...</p>;
+    if (isLoading) {
+        return (
+            <p className="text-center text-gray-400 py-10">
+                Loading...
+            </p>
+        );
+    }
 
     const products = limit ? data?.slice(0, limit) : data;
 
     return (
-        <div className="flex flex-wrap justify-center gap-6 px-10">
+        <div
+            className="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                md:grid-cols-3
+                lg:grid-cols-4
+                gap-5
+                px-4
+                sm:px-6
+                lg:px-10
+            "
+        >
             {products?.map((product) => (
-                <div key={product.id} className="w-[250px]">
-                    <ProductCard product={product} />
-                </div>
+                <ProductCard
+                    key={product.id}
+                    product={product}
+                />
             ))}
         </div>
     );

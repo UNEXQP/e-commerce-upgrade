@@ -20,19 +20,33 @@ const CartContext = createContext<CartContextType | null>(null);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
 
+    // const addToCart = (product: Products, quantity = 1) => {
+    //     setCart((prevCart) => {
+    //         const existingItems = prevCart.find((prev) => prev.id === product.id)
+    //         if (existingItems) {
+    //             prevCart.map((item) => (
+    //                 item.id === product.id ?
+    //                     { ...item, quantity: item.quantity + quantity } :
+    //                     item
+    //             ))
+    //         }
+    //         return [...prevCart, { ...product, quantity }]
+    //     })
+    // }
+
     const addToCart = (product: Products, quantity = 1) => {
-        setCart((prev) => {
-            const existing = prev.find((item) => item.id === product.id);
-            if (existing) {
-                return prev.map((item) =>
-                    item.id === product.id
-                        ? { ...item, quantity: item.quantity + quantity }
-                        : item
-                );
+        setCart(prevCart => {
+            const existingItems = prevCart.find((item, _) => item.id === product.id)
+
+            if (existingItems) {
+                prevCart.map((item) => {
+                    item.id === product.id ?
+                        { ...item, quantity: item.quantity + quantity } : item
+                })
             }
-            return [...prev, { ...product, quantity }];
-        });
-    };
+          return  [...prevCart, { ...product, quantity }]
+        })
+    }
 
     const removeFromCart = (id: number) => {
         setCart((prev) => prev.filter((item) => item.id !== id));
@@ -44,6 +58,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             prev.map((item) => (item.id === id ? { ...item, quantity } : item))
         );
     };
+
+
 
     const clearCart = () => setCart([]);
 

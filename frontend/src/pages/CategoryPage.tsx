@@ -16,29 +16,33 @@ export const CategoryPage = () => {
         queryFn: fetchData,
     });
 
-    console.log("Fetched products:", data);
-
     const categories = data
         ? ["all", ...new Set(data.map((item) => item.category))]
         : ["all"];
 
-    const byCategory = !data ? [] :
-        activeCategory === "all"
+    const byCategory = !data
+        ? []
+        : activeCategory === "all"
             ? data
             : data.filter((item) => item.category === activeCategory);
 
     const byPrice = byCategory.filter((item) => {
-        if (!item) return false;  // guard against undefined entries
-        const aboveMin = minPrice === "" || item.price >= minPrice;
-        const belowMax = maxPrice === "" || item.price <= maxPrice;
+        if (!item) return false;
+
+        const aboveMin =
+            minPrice === "" || item.price >= minPrice;
+
+        const belowMax =
+            maxPrice === "" || item.price <= maxPrice;
+
         return aboveMin && belowMax;
     });
 
-    // 3. sort
     const sorted = [...byPrice].sort((a, b) => {
         if (sortBy === "price-asc") return a.price - b.price;
         if (sortBy === "price-desc") return b.price - a.price;
         if (sortBy === "rating") return b.rating.rate - a.rating.rate;
+
         return 0;
     });
 
@@ -47,7 +51,9 @@ export const CategoryPage = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <div className="flex flex-col items-center gap-3">
                     <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                    <p className="text-sm text-gray-500 font-medium">Loading products...</p>
+                    <p className="text-sm text-gray-500 font-medium">
+                        Loading products...
+                    </p>
                 </div>
             </div>
         );
@@ -57,8 +63,13 @@ export const CategoryPage = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <div className="text-center">
-                    <p className="text-2xl font-bold mb-2">Something went wrong</p>
-                    <p className="text-sm text-gray-400">Try refreshing the page</p>
+                    <p className="text-2xl font-bold mb-2">
+                        Something went wrong
+                    </p>
+
+                    <p className="text-sm text-gray-400">
+                        Try refreshing the page
+                    </p>
                 </div>
             </div>
         );
@@ -68,22 +79,42 @@ export const CategoryPage = () => {
         <div className="min-h-screen bg-gray-50">
             <Navbar />
 
-            <div className="flex min-h-[calc(100vh-56px)]">
+            {/* Layout */}
+            <div className="flex flex-col lg:flex-row min-h-[calc(100vh-56px)]">
+
                 {/* Sidebar */}
-                <aside className="w-56 shrink-0 bg-[#0f0f0f] text-white p-6 sticky top-0 h-screen overflow-y-auto">
+                <aside
+                    className="
+                        w-full
+                        lg:w-56
+                        shrink-0
+                        bg-[#0f0f0f]
+                        text-white
+                        p-5
+                        lg:p-6
+                        lg:sticky
+                        lg:top-0
+                        lg:h-screen
+                        overflow-y-auto
+                    "
+                >
                     <p className="text-[10px] font-bold tracking-[2px] uppercase text-gray-500 mb-4">
                         Categories
                     </p>
-                    <div className="flex flex-col gap-1">
+
+                    {/* Categories */}
+                    <div className="flex flex-wrap lg:flex-col gap-2">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`text-left px-3 py-2.5 rounded-lg text-sm transition-all capitalize
-                  ${activeCategory === cat
+                                className={`
+                                    px-3 py-2.5 rounded-lg text-sm transition-all capitalize
+                                    ${activeCategory === cat
                                         ? "bg-white text-black font-medium"
                                         : "text-gray-400 hover:bg-white/10 hover:text-white"
-                                    }`}
+                                    }
+                                `}
                             >
                                 {cat}
                             </button>
@@ -92,64 +123,148 @@ export const CategoryPage = () => {
 
                     <hr className="border-white/10 my-5" />
 
+                    {/* Price Range */}
                     <p className="text-[10px] font-bold tracking-[2px] uppercase text-gray-500 mb-3">
                         Price Range
                     </p>
+
                     <div className="flex items-center gap-2">
                         <input
                             type="number"
                             placeholder="Min"
                             value={minPrice}
                             onChange={(e) =>
-                                setMinPrice(e.target.value === "" ? "" : Number(e.target.value))
+                                setMinPrice(
+                                    e.target.value === ""
+                                        ? ""
+                                        : Number(e.target.value)
+                                )
                             }
-                            className="w-full bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 text-xs text-white outline-none focus:border-white/30"
+                            className="
+                                w-full
+                                bg-white/5
+                                border
+                                border-white/10
+                                rounded-md
+                                px-2.5
+                                py-2
+                                text-xs
+                                text-white
+                                outline-none
+                                focus:border-white/30
+                            "
                         />
+
                         <span className="text-gray-600">—</span>
+
                         <input
                             type="number"
                             placeholder="Max"
                             value={maxPrice}
                             onChange={(e) =>
-                                setMaxPrice(e.target.value === "" ? "" : Number(e.target.value))
+                                setMaxPrice(
+                                    e.target.value === ""
+                                        ? ""
+                                        : Number(e.target.value)
+                                )
                             }
-                            className="w-full bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 text-xs text-white outline-none focus:border-white/30"
+                            className="
+                                w-full
+                                bg-white/5
+                                border
+                                border-white/10
+                                rounded-md
+                                px-2.5
+                                py-2
+                                text-xs
+                                text-white
+                                outline-none
+                                focus:border-white/30
+                            "
                         />
                     </div>
                 </aside>
 
-                {/* Main */}
-                <main className="flex-1 p-7">
-                    <div className="flex items-center justify-between mb-6">
+                {/* Main Content */}
+                <main className="flex-1 p-4 sm:p-6 lg:p-7">
+
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+
                         <div>
-                            <h1 className="text-3xl font-extrabold tracking-tight capitalize">
-                                {activeCategory === "all" ? "All Products" : activeCategory}
+                            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight capitalize">
+                                {activeCategory === "all"
+                                    ? "All Products"
+                                    : activeCategory}
                             </h1>
+
                             <p className="text-sm text-gray-400 mt-1">
                                 {sorted.length} items found
                             </p>
                         </div>
+
+                        {/* Sort */}
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
-                            className="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white outline-none cursor-pointer"
+                            className="
+                                text-sm
+                                border
+                                border-gray-200
+                                rounded-lg
+                                px-3
+                                py-2
+                                bg-white
+                                outline-none
+                                cursor-pointer
+                                w-full
+                                sm:w-auto
+                            "
                         >
-                            <option value="featured">Sort: Featured</option>
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="rating">Top Rated</option>
+                            <option value="featured">
+                                Sort: Featured
+                            </option>
+
+                            <option value="price-asc">
+                                Price: Low to High
+                            </option>
+
+                            <option value="price-desc">
+                                Price: High to Low
+                            </option>
+
+                            <option value="rating">
+                                Top Rated
+                            </option>
                         </select>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {/* Products */}
+                    <div
+                        className="
+                            grid
+                            grid-cols-1
+                            sm:grid-cols-2
+                            md:grid-cols-3
+                            xl:grid-cols-4
+                            gap-4
+                            sm:gap-5
+                        "
+                    >
                         {sorted.filter(Boolean).map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                            />
                         ))}
                     </div>
 
+                    {/* Empty State */}
                     {sorted.length === 0 && (
                         <div className="flex items-center justify-center h-64">
-                            <p className="text-gray-400 text-sm">No products match your filters.</p>
+                            <p className="text-gray-400 text-sm text-center">
+                                No products match your filters.
+                            </p>
                         </div>
                     )}
                 </main>
