@@ -23,7 +23,7 @@ export const HomePage = () => {
                     className="bg-cover bg-center relative "
                     style={{ backgroundImage: `url(${Rectangle})` }}
                 >
-                    {/* Main content */}
+                
                     <div className="px-6 py-10 sm:p-10 md:p-[60px]">
                         <h1 className="font-black text-4xl sm:text-5xl md:text-6xl w-full max-w-[500px] mb-5 md:mb-7 leading-tight">
                             FIND CLOTHES THAT MATCHES YOUR STYLE
@@ -38,7 +38,7 @@ export const HomePage = () => {
                             <Link to="/products">Shop Now</Link>
                         </button>
 
-                        {/* Stats */}
+                        
                         <div className="flex flex-wrap items-center gap-y-4">
                             <div className="px-3 py-1">
                                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-medium">200+</h3>
