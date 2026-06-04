@@ -16,7 +16,7 @@ app.use(cors({
   ],
 }));
 
-app.use('/webhook', express.raw({ type: 'application/json' }), (req: any, _res, next) => {
+app.use('/webhooks/bankrail/credit', express.raw({ type: 'application/json' }), (req: any, _res, next) => {
   req.body = JSON.parse(req.body);
   next();
 });
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 app.get('/health', (_, res) => res.json({ status: 'ok' }));
 app.use('/checkout', checkoutRouter);
-app.use('/webhook', webhookRouter);
+app.use('/webhooks/bankrail/credit', webhookRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
