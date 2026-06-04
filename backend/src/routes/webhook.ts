@@ -57,22 +57,14 @@ router.post('/', (req: Request, res: Response) => {
 });
 
 function handleEvent(body: any) {
-  const { event, data } = body;
-  console.log('Raw webhook body:', JSON.stringify(body, null, 2));
-
-  switch (event) {
-    case 'credit.confirmed':
-      console.log(`Payment confirmed:
-        reference:  ${data?.reference}
-        amount:     ₦${(data?.amountKobo / 100).toLocaleString()}
-        trackingId: ${data?.trackingId}
-      `);
-      // TODO: update order status in DB
-      break;
-
-    default:
-      console.log(`Unhandled event: ${event}`);
-  }
+  console.log(`Payment confirmed:
+    reference:      ${body.reference}
+    amount:         ₦${(body.amountKobo / 100).toLocaleString()}
+    virtualAccount: ${body.virtualAccount}
+    provider:       ${body.provider}
+    confirmedAt:    ${body.confirmedAt}
+  `);
+  // TODO: update order status in DB using body.reference
 }
 
 export default router;
