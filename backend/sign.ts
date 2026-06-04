@@ -8,7 +8,7 @@ const SECRET = '010c597f8d1ddaf1831cecfcfa2188f642f359fb4083dffaa8aa4b76add240da
 const method = 'POST';
 const path = "/api/v1/bankrail/sandbox/simulate-credit";// change per request
 const body = JSON.stringify({
-  virtualAccount: "9977664938",
+  virtualAccount: "9977953287",
   amountKobo: 100000,
   narration: "Sandbox test credit",
   originator: {

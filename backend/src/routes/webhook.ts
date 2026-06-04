@@ -58,6 +58,7 @@ router.post('/', (req: Request, res: Response) => {
 
 function handleEvent(body: any) {
   const { event, data } = body;
+  console.log('Raw webhook body:', JSON.stringify(body, null, 2));
 
   switch (event) {
     case 'credit.confirmed':
